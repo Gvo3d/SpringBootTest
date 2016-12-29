@@ -1,0 +1,13 @@
+# Intellij
+.idea/
+*.iml
+*.iws
+!.idea/runConfigurations
+out
+gen
+
+# Maven
+log/
+target/
+/.idea/modules.xml
+/.idea/vcs.xml
