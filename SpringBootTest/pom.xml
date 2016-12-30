@@ -8,36 +8,6 @@
     <artifactId>SpringBootTest</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-
-    <properties>
-        <spring-starter.version>1.4.3.RELEASE</spring-starter.version>
-    </properties>
-
-    <repositories>
-        <repository>
-            <id>jboss-public-repository-group</id>
-            <url>https://repository.jboss.org/nexus/content/groups/public-jboss</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>Maven2Central</id>
-            <url>http://central.maven.org/maven2/</url>
-        </repository>
-        <repository>
-            <id>Alfresco</id>
-            <url>https://artifacts.alfresco.com/nexus/content/repositories/public/</url>
-        </repository>
-        <repository>
-            <id>Sonatype</id>
-            <url>https://oss.sonatype.org/content/repositories/releases/</url>
-        </repository>
-    </repositories>
-
     <build>
         <testResources>
             <testResource>
@@ -46,14 +16,11 @@
         </testResources>
     </build>
 
-
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>${spring-starter.version}</version>
-        <relativePath/>
+        <version>1.4.3.RELEASE</version>
     </parent>
-
 
     <dependencies>
 
@@ -67,7 +34,22 @@
             <artifactId>spring-data-jpa</artifactId>
         </dependency>
 
-    </dependencies>
+        <dependency>
+            <groupId>org.thymeleaf</groupId>
+            <artifactId>thymeleaf-spring4</artifactId>
+        </dependency>
 
+        <dependency>
+            <groupId>nz.net.ultraq.thymeleaf</groupId>
+            <artifactId>thymeleaf-layout-dialect</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.mchange</groupId>
+            <artifactId>c3p0</artifactId>
+            <version>0.9.2.1</version>
+        </dependency>
+
+    </dependencies>
 
 </project>
