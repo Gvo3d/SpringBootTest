@@ -4,7 +4,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import projectpackage.service.DataService;
+import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,6 +12,7 @@ import java.util.List;
 /**
  * Created by Gvozd on 30.12.2016.
  */
+@Repository
 public class DataRepositoryImpl implements DataRepository {
     @Override
     public Object save(Object o) {
