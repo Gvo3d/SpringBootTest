@@ -48,3 +48,18 @@
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-data-mongodb</artifactId>
 </dependency>
+
+<!--Google Guava for Immutable Collections-->
+<dependency>
+<groupId>com.google.guava</groupId>
+<artifactId>guava</artifactId>
+<version>21.0-rc1</version>
+</dependency>
+
+<!--Lombok artifact for automatic data creation(Getters and Setters), Data verification and other things (@NonNull, @Data, ...)
+For other info look: https://habrahabr.ru/post/142356/-->
+<dependency>
+<groupId>org.projectlombok</groupId>
+<artifactId>lombok</artifactId>
+<version>1.16.12</version>
+</dependency>
