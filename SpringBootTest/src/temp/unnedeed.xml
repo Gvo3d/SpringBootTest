@@ -9,7 +9,7 @@
 <artifactId>thymeleaf-layout-dialect</artifactId>
 </dependency>
 
-<!--Postgre-->
+        <!--Postgre-->
 <dependency>
 <groupId>org.postgresql</groupId>
 <artifactId>postgresql</artifactId>
@@ -17,25 +17,25 @@
 <scope>runtime</scope>
 </dependency>
 
-<!--JDBC-->
+        <!--JDBC-->
 <dependency>
 <groupId>org.springframework</groupId>
 <artifactId>spring-jdbc</artifactId>
 </dependency>
 
-<!--C3P0 for Hibernate-->
+        <!--C3P0 for Hibernate-->
 <dependency>
 <groupId>org.hibernate</groupId>
 <artifactId>hibernate-c3p0</artifactId>
 </dependency>
 
-<!--Hikari Connection Pool-->
+        <!--Hikari Connection Pool-->
 <dependency>
 <groupId>com.zaxxer</groupId>
 <artifactId>HikariCP</artifactId>
 </dependency>
 
-<!--MySQL Connector-->
+        <!--MySQL Connector-->
 <dependency>
 <groupId>mysql</groupId>
 <artifactId>mysql-connector-java</artifactId>
@@ -43,21 +43,21 @@
 <scope>runtime</scope>
 </dependency>
 
-<!--Spring-Boot Spring-Data-MongoDB-->
+        <!--Spring-Boot Spring-Data-MongoDB-->
 <dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-data-mongodb</artifactId>
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-starter-data-mongodb</artifactId>
 </dependency>
 
-<!--Google Guava for Immutable Collections-->
+        <!--Google Guava for Immutable Collections-->
 <dependency>
 <groupId>com.google.guava</groupId>
 <artifactId>guava</artifactId>
 <version>21.0-rc1</version>
 </dependency>
 
-<!--Lombok artifact for automatic data creation(Getters and Setters), Data verification and other things (@NonNull, @Data, ...)
-For other info look: https://habrahabr.ru/post/142356/-->
+        <!--Lombok artifact for automatic data creation(Getters and Setters), Data verification and other things (@NonNull, @Data, ...)
+        For other info look: https://habrahabr.ru/post/142356/-->
 <dependency>
 <groupId>org.projectlombok</groupId>
 <artifactId>lombok</artifactId>

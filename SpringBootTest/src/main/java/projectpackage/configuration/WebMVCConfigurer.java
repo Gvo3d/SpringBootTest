@@ -1,6 +1,5 @@
 package projectpackage.configuration;
 
-import org.springframework.boot.autoconfigure.web.ErrorProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
@@ -50,11 +49,6 @@ public class WebMVCConfigurer extends WebMvcConfigurerAdapter {
         return reloadableResourceBundleMessageSource;
     }
 
-//    ERROR CONTROLLER SUPPORT BEANS
-    @Bean
-    ErrorProperties errorProperties(){
-        return new ErrorProperties();
-    }
 
     @Override
     public void configureDefaultServletHandling(
