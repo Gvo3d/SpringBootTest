@@ -1,14 +1,13 @@
 package projectpackage.configuration;
 
 import org.apache.tomcat.jdbc.pool.DataSource;
-import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
-import projectpackage.components.VerticalDatabaseMessageSource;
+import projectpackage.Application;
 
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 /**
@@ -28,12 +27,15 @@ public class ContextConfiguration {
     //    DataSource for JdbcTemplate
     @Bean
     DataSource dataSource() {
+        System.out.println("TRYING PROPS");
         DataSource dataSource = new DataSource();
         Properties props = new Properties();
-        FileInputStream fis = null;
+//        FileInputStream fis = null;
         try {
-            fis = new FileInputStream("application.properties");
+            InputStream fis = Application.class.getResourceAsStream("application.properties");
+//            fis = new FileInputStream("classpath:application.properties");
             props.load(fis);
+            System.out.println(props.getProperty("dataSource.url"));
             dataSource.setUrl(props.getProperty("dataSource.url"));
             dataSource.setName(props.getProperty("dataSource.username"));
             dataSource.setPassword(props.getProperty("dataSource.password"));
@@ -43,9 +45,4 @@ public class ContextConfiguration {
         return dataSource;
     }
 
-    //    Custom MessageSource for database internationalization
-    @Bean
-    MessageSource verticalDatabaseMessageSource() {
-        return new VerticalDatabaseMessageSource();
-    }
 }

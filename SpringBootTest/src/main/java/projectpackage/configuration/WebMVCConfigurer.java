@@ -14,6 +14,7 @@ import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import org.thymeleaf.templateresolver.TemplateResolver;
 import projectpackage.components.DatabaseThymeleafMessageResolver;
+import projectpackage.components.VerticalDatabaseMessageSource;
 
 /**
  * Created by Gvozd on 30.12.2016.
@@ -40,7 +41,6 @@ public class WebMVCConfigurer extends WebMvcConfigurerAdapter {
         springTemplateEngine.setTemplateResolver(templateResolver());
         springTemplateEngine.setMessageSource(messageSource());
         springTemplateEngine.addMessageResolver(customMessageResolver());
-
         return springTemplateEngine;
     }
 
@@ -52,9 +52,16 @@ public class WebMVCConfigurer extends WebMvcConfigurerAdapter {
         return resolver;
     }
 
+//    Самодельный message resolver под интернационализацию из БД
     @Bean
     IMessageResolver customMessageResolver(){
-        return new DatabaseThymeleafMessageResolver();
+        return new DatabaseThymeleafMessageResolver(verticalDatabaseMessageSource());
+    }
+
+//    Самодельный Message Source, достающий сообщения через JDBCTemplate из БД
+    @Bean
+    VerticalDatabaseMessageSource verticalDatabaseMessageSource(){
+        return new VerticalDatabaseMessageSource();
     }
 
 //    Класс интернационализации сообщений из interface.properties
