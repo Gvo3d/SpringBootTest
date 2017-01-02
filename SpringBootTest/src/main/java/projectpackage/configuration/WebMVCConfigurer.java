@@ -27,7 +27,7 @@ public class WebMVCConfigurer extends WebMvcConfigurerAdapter {
         templateResolver.setSuffix(".html");
         templateResolver.setTemplateMode("HTML5");
         return templateResolver;
-        log.info("Hi there!")
+        log.info("Hi there!");
     }
 
     @Bean
