@@ -8,10 +8,12 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.thymeleaf.messageresolver.IMessageResolver;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import org.thymeleaf.templateresolver.TemplateResolver;
+import projectpackage.components.DatabaseThymeleafMessageResolver;
 
 /**
  * Created by Gvozd on 30.12.2016.
@@ -37,6 +39,8 @@ public class WebMVCConfigurer extends WebMvcConfigurerAdapter {
         SpringTemplateEngine springTemplateEngine = new SpringTemplateEngine();
         springTemplateEngine.setTemplateResolver(templateResolver());
         springTemplateEngine.setMessageSource(messageSource());
+        springTemplateEngine.addMessageResolver(customMessageResolver());
+
         return springTemplateEngine;
     }
 
@@ -46,6 +50,11 @@ public class WebMVCConfigurer extends WebMvcConfigurerAdapter {
         ThymeleafViewResolver resolver = new ThymeleafViewResolver();
         resolver.setTemplateEngine(springTemplateEngine());
         return resolver;
+    }
+
+    @Bean
+    IMessageResolver customMessageResolver(){
+        return new DatabaseThymeleafMessageResolver();
     }
 
 //    Класс интернационализации сообщений из interface.properties
