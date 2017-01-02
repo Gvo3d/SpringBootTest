@@ -1,6 +1,7 @@
 package projectpackage.configuration;
 
 import lombok.extern.log4j.Log4j;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
@@ -20,23 +21,26 @@ import org.thymeleaf.templateresolver.TemplateResolver;
 @EnableWebMvc
 public class WebMVCConfigurer extends WebMvcConfigurerAdapter {
 
+//    Ищет View(Template) для отображения страниц
     @Bean
     TemplateResolver templateResolver() {
         ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver();
         templateResolver.setPrefix("/WEB-INF/views/");
         templateResolver.setSuffix(".html");
         templateResolver.setTemplateMode("HTML5");
-        log.info("Hi there!");
         return templateResolver;
     }
 
+//    Общий класс для отображения страниц и интернационализации сообщений
     @Bean
     SpringTemplateEngine springTemplateEngine() {
         SpringTemplateEngine springTemplateEngine = new SpringTemplateEngine();
         springTemplateEngine.setTemplateResolver(templateResolver());
+        springTemplateEngine.setMessageSource(messageSource());
         return springTemplateEngine;
     }
 
+//    Общий резольвер
     @Bean
     public ThymeleafViewResolver thymeleafViewResolver() {
         ThymeleafViewResolver resolver = new ThymeleafViewResolver();
@@ -44,14 +48,15 @@ public class WebMVCConfigurer extends WebMvcConfigurerAdapter {
         return resolver;
     }
 
+//    Класс интернационализации сообщений из interface.properties
     @Bean
-    ReloadableResourceBundleMessageSource reloadableResourceBundleMessageSource(){
+    MessageSource messageSource(){
         ReloadableResourceBundleMessageSource reloadableResourceBundleMessageSource = new ReloadableResourceBundleMessageSource();
         reloadableResourceBundleMessageSource.setBasename("classpath:interface");
         reloadableResourceBundleMessageSource.setDefaultEncoding("UTF-8");
+        reloadableResourceBundleMessageSource.setFallbackToSystemLocale(false);
         return reloadableResourceBundleMessageSource;
     }
-
 
     @Override
     public void configureDefaultServletHandling(
