@@ -1,5 +1,6 @@
 package projectpackage.configuration;
 
+import lombok.extern.log4j.Log4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
@@ -14,6 +15,7 @@ import org.thymeleaf.templateresolver.TemplateResolver;
 /**
  * Created by Gvozd on 30.12.2016.
  */
+@Log4j
 @Configuration
 @EnableWebMvc
 public class WebMVCConfigurer extends WebMvcConfigurerAdapter {
@@ -25,6 +27,7 @@ public class WebMVCConfigurer extends WebMvcConfigurerAdapter {
         templateResolver.setSuffix(".html");
         templateResolver.setTemplateMode("HTML5");
         return templateResolver;
+        log.info("Hi there!")
     }
 
     @Bean
