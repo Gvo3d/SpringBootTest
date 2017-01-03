@@ -10,11 +10,14 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.thymeleaf.messageresolver.IMessageResolver;
 import org.thymeleaf.spring4.SpringTemplateEngine;
+import org.thymeleaf.spring4.messageresolver.SpringMessageResolver;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import org.thymeleaf.templateresolver.TemplateResolver;
 import projectpackage.components.DatabaseThymeleafMessageResolver;
 import projectpackage.components.VerticalDatabaseMessageSource;
+
+import java.util.HashSet;
 
 /**
  * Created by Gvozd on 30.12.2016.
@@ -39,8 +42,7 @@ public class WebMVCConfigurer extends WebMvcConfigurerAdapter {
     SpringTemplateEngine springTemplateEngine() {
         SpringTemplateEngine springTemplateEngine = new SpringTemplateEngine();
         springTemplateEngine.setTemplateResolver(templateResolver());
-        springTemplateEngine.setMessageSource(messageSource());
-        springTemplateEngine.addMessageResolver(customMessageResolver());
+        springTemplateEngine.setDefaultMessageResolvers(messageResolvers());
         return springTemplateEngine;
     }
 
@@ -49,24 +51,49 @@ public class WebMVCConfigurer extends WebMvcConfigurerAdapter {
     public ThymeleafViewResolver thymeleafViewResolver() {
         ThymeleafViewResolver resolver = new ThymeleafViewResolver();
         resolver.setTemplateEngine(springTemplateEngine());
+        resolver.setCharacterEncoding("UTF-8");
         return resolver;
+    }
+
+//    Резольвер локалей, заточенный под Default русскую локаль
+//    @Bean
+//    LocaleResolver localeResolver(){
+//        SessionLocaleResolver sessionLocaleResolver = new SessionLocaleResolver();
+//        sessionLocaleResolver.setDefaultLocale(new Locale("ru"));
+//        return sessionLocaleResolver;
+//    }
+    @Bean
+    HashSet<IMessageResolver> messageResolvers(){
+        HashSet<IMessageResolver> hashSet = new HashSet<>();
+        hashSet.add(iMessageResolver());
+        hashSet.add(customMessageResolver());
+        return hashSet;
+    }
+
+    @Bean
+    SpringMessageResolver iMessageResolver(){
+        SpringMessageResolver messageResolver = new SpringMessageResolver();
+        messageResolver.setMessageSource(MymessageSource());
+        return messageResolver;
     }
 
 //    Самодельный message resolver под интернационализацию из БД
     @Bean
     IMessageResolver customMessageResolver(){
+        log.info("Creating custom message resolver bean.");
         return new DatabaseThymeleafMessageResolver(verticalDatabaseMessageSource());
     }
 
 //    Самодельный Message Source, достающий сообщения через JDBCTemplate из БД
     @Bean
     VerticalDatabaseMessageSource verticalDatabaseMessageSource(){
+        log.info("Creating vertical database message source bean.");
         return new VerticalDatabaseMessageSource();
     }
 
-//    Класс интернационализации сообщений из interface.properties
+//    Класс интернационализации сообщений из interface_ru.properties
     @Bean
-    MessageSource messageSource(){
+    MessageSource MymessageSource(){
         ReloadableResourceBundleMessageSource reloadableResourceBundleMessageSource = new ReloadableResourceBundleMessageSource();
         reloadableResourceBundleMessageSource.setBasename("classpath:interface");
         reloadableResourceBundleMessageSource.setDefaultEncoding("UTF-8");

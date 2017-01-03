@@ -1,18 +1,21 @@
 package projectpackage.configuration;
 
-import org.apache.tomcat.jdbc.pool.DataSource;
+import lombok.extern.log4j.Log4j;
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
-import projectpackage.Application;
 
+import javax.sql.DataSource;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Properties;
 
 /**
  * Created by Gvozd on 30.12.2016.
  */
+@Log4j
 @Configuration
 public class ContextConfiguration {
 
@@ -20,25 +23,33 @@ public class ContextConfiguration {
     @Bean
     JdbcTemplate jdbcTemplate() {
         JdbcTemplate jdbcTemplate = new JdbcTemplate();
-        jdbcTemplate.setDataSource(dataSource());
+        jdbcTemplate.setDataSource(customDataSource());
         return jdbcTemplate;
     }
 
     //    DataSource for JdbcTemplate
     @Bean
-    DataSource dataSource() {
-        System.out.println("TRYING PROPS");
-        DataSource dataSource = new DataSource();
+    DataSource customDataSource() {
+        BasicDataSource dataSource = new BasicDataSource();
+        log.info("Creating datasource");
         Properties props = new Properties();
-//        FileInputStream fis = null;
+        FileInputStream fis = null;
         try {
-            InputStream fis = Application.class.getResourceAsStream("application.properties");
-//            fis = new FileInputStream("classpath:application.properties");
+            String fileName = "application.properties";
+            ClassLoader classLoader = getClass().getClassLoader();
+            File file = new File(classLoader.getResource(fileName).getFile());
+            fis = new FileInputStream(file);
+
             props.load(fis);
-            System.out.println(props.getProperty("dataSource.url"));
             dataSource.setUrl(props.getProperty("dataSource.url"));
-            dataSource.setName(props.getProperty("dataSource.username"));
+            dataSource.setUsername(props.getProperty("dataSource.username"));
             dataSource.setPassword(props.getProperty("dataSource.password"));
+            try {
+                Class.forName(props.getProperty("dataSource.driverClassName"));
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+            dataSource.setDriverClassName(props.getProperty("dataSource.driverClassName"));
         } catch (IOException e) {
             e.printStackTrace();
         }

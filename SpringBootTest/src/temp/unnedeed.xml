@@ -35,12 +35,19 @@
 <artifactId>HikariCP</artifactId>
 </dependency>
 
-        <!--MySQL Connector-->
+        <!--MySQL Connector and JDBC Driver-->
 <dependency>
 <groupId>mysql</groupId>
 <artifactId>mysql-connector-java</artifactId>
 <version>5.1.6</version>
 <scope>runtime</scope>
+</dependency>
+
+        <!--DBCP connection pool for JDBC -->
+<dependency>
+<groupId>org.apache.commons</groupId>
+<artifactId>commons-dbcp2</artifactId>
+<version>2.1.1</version>
 </dependency>
 
         <!--Spring-Boot Spring-Data-MongoDB-->

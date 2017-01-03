@@ -22,8 +22,8 @@ public class VerticalDatabaseMessageSource extends AbstractDatabaseMessageSource
 
         Messages messages = new Messages();
         while (rs.next()) {
-            Locale locale = new Locale(rs.getString("locale"));
-            messages.addMessage(rs.getString("code"), locale, rs.getString("msg"));
+            Locale locale = new Locale(rs.getString("IM_LOCALE"));
+            messages.addMessage(rs.getString("IM_CODE"), locale, rs.getString("IM_DATA"));
         }
         return messages;
     }

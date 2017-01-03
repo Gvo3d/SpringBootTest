@@ -29,6 +29,7 @@ public final class DatabaseThymeleafMessageResolver extends AbstractMessageResol
         Validate.notNull(s, "Message key cannot be null");
         try {
             String e = this.messageSource.getMessage(s, objects, arguments.getContext().getLocale());
+            System.out.println(e.toString());
             return new MessageResolution(e);
         } catch (NoSuchMessageException var5) {
             return null;
@@ -40,7 +41,4 @@ public final class DatabaseThymeleafMessageResolver extends AbstractMessageResol
         this.messageSource = messageSource;
     }
 
-    public void setMessageSource(VerticalDatabaseMessageSource messageSource) {
-        this.messageSource = messageSource;
-    }
 }
