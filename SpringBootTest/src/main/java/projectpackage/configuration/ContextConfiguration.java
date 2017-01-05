@@ -31,7 +31,6 @@ public class ContextConfiguration {
     @Bean
     DataSource customDataSource() {
         BasicDataSource dataSource = new BasicDataSource();
-        log.info("Creating datasource");
         Properties props = new Properties();
         FileInputStream fis = null;
         try {

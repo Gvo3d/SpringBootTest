@@ -17,6 +17,7 @@ import java.util.Map;
 
 public abstract class AbstractDatabaseMessageSource extends AbstractMessageSource {
     private Messages messages;
+    private String defaultLocale;
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -37,6 +38,14 @@ public abstract class AbstractDatabaseMessageSource extends AbstractMessageSourc
                 return extractI18NData(rs);
             }
         });
+        if (defaultLocale!=null){
+            messages.setDefaultLocale(defaultLocale);
+        }
+
+    }
+
+    public void setDefaultLocale(String defaultLocale) {
+        this.defaultLocale = defaultLocale;
     }
 
     /**
@@ -60,12 +69,19 @@ public abstract class AbstractDatabaseMessageSource extends AbstractMessageSourc
 
     protected static final class Messages {
 
+        private String defaultLocale;
+
+        public void setDefaultLocale(String defaultLocale) {
+            this.defaultLocale = defaultLocale;
+        }
+
         /* <code, <locale, message>> */
         private Map<String, Map<Locale, String>> messages;
 
         public void addMessage(String code, Locale locale, String msg) {
-            if (messages == null)
+            if (messages == null) {
                 messages = new HashMap<String, Map<Locale, String>>();
+            }
 
             Map<Locale, String> data = messages.get(code);
             if (data == null) {
@@ -78,7 +94,9 @@ public abstract class AbstractDatabaseMessageSource extends AbstractMessageSourc
 
         public String getMessage(String code, Locale locale) {
             Map<Locale, String> data = messages.get(code);
-            return data != null ? data.get(locale) : null;
+            String result = data != null ? data.get(locale) : data.get(new Locale.Builder().setLanguage(defaultLocale).setRegion(defaultLocale.toUpperCase()).build());
+            return result;
         }
+
     }
 }

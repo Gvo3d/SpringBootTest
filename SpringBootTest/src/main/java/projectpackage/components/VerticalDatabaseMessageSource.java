@@ -9,8 +9,12 @@ import java.util.Locale;
 
 @Component
 public class VerticalDatabaseMessageSource extends AbstractDatabaseMessageSource {
+    private static final String CODETABLEFROMDATABASE = "IM_CODE";
+    private static final String LABELTABLEFROMDATABASE = "IM_LOCALE";
+    private static final String MESSAGETABLEFROMDATABASE = "IM_DATA";
+    private static final String TABLENAMEFROMDATABASE = "INTERNATIONAL_MESSAGES";
 
-    private static final String I18N_QUERY = "select IM_CODE, IM_LOCALE, IM_DATA from INTERNATIONAL_MESSAGES";
+    private static final String I18N_QUERY = "select "+CODETABLEFROMDATABASE+", "+LABELTABLEFROMDATABASE+", "+MESSAGETABLEFROMDATABASE+" from "+TABLENAMEFROMDATABASE;
 
     @Override
     protected String getI18NSqlQuery() {
@@ -22,8 +26,9 @@ public class VerticalDatabaseMessageSource extends AbstractDatabaseMessageSource
 
         Messages messages = new Messages();
         while (rs.next()) {
-            Locale locale = new Locale(rs.getString("IM_LOCALE"));
-            messages.addMessage(rs.getString("IM_CODE"), locale, rs.getString("IM_DATA"));
+            String localeString = rs.getString(LABELTABLEFROMDATABASE);
+            Locale locale = new Locale.Builder().setLanguage(localeString).setRegion(localeString.toUpperCase()).build();
+            messages.addMessage(rs.getString(CODETABLEFROMDATABASE), locale, rs.getString(MESSAGETABLEFROMDATABASE));
         }
         return messages;
     }
