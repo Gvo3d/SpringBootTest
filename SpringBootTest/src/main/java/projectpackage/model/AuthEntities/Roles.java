@@ -17,10 +17,14 @@ public class Roles {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "ROLE_ID")
-    private int id;
+    private Integer id;
 
-    @Column(name = "ROLE_NAME")
+    @Column(name = "ROLE_NAME", unique = true)
     private String roleName;
+
+//    @ManyToMany(fetch = FetchType.LAZY)
+//    @JoinTable(name = "USER_ROLES", joinColumns = @JoinColumn(name = "UR_ROLE_ID"), inverseJoinColumns = @JoinColumn(name = "UR_USER_ID"))
+//    private Set<User> users = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {

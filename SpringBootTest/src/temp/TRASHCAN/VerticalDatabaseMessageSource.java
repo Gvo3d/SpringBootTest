@@ -8,7 +8,7 @@
 //import java.util.Locale;
 //
 //@Component
-//public class VerticalDatabaseMessageSource extends AbstractDatabaseMessageSource {
+//public class VerticalDatabaseMessageSource extends CustomDatabaseMessageSource {
 //    private static final String CODETABLEFROMDATABASE = "IM_CODE";
 //    private static final String LABELTABLEFROMDATABASE = "IM_LOCALE";
 //    private static final String MESSAGETABLEFROMDATABASE = "IM_DATA";

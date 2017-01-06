@@ -11,7 +11,7 @@ import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import org.thymeleaf.templateresolver.TemplateResolver;
-import projectpackage.components.AbstractDatabaseMessageSource;
+import projectpackage.components.CustomDatabaseMessageSource;
 
 /**
  * Created by Gvozd on 30.12.2016.
@@ -52,7 +52,7 @@ public class WebMVCConfigurer extends WebMvcConfigurerAdapter {
 //    Самодельный Message Source, достающий сообщения через JDBCTemplate из БД
     @Bean
     MessageSource messageSource(){
-        AbstractDatabaseMessageSource vdms = new AbstractDatabaseMessageSource();
+        CustomDatabaseMessageSource vdms = new CustomDatabaseMessageSource();
         vdms.setDefaultLocale("ru");
         return vdms;
     }

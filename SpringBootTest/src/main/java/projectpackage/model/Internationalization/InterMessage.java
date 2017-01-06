@@ -17,7 +17,7 @@ public class InterMessage {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "INTERNATIONAL_MESSAGES_ID")
-    private int id;
+    private Integer id;
 
     @Column(name = "IM_CODE")
     private String code;
@@ -36,5 +36,25 @@ public class InterMessage {
                 ", stringLocale='" + stringLocale + '\'' +
                 ", message='" + message + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        InterMessage that = (InterMessage) o;
+
+        if (!code.equals(that.code)) return false;
+        if (!stringLocale.equals(that.stringLocale)) return false;
+        return message != null ? message.equals(that.message) : that.message == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = code.hashCode();
+        result = 31 * result + stringLocale.hashCode();
+        result = 31 * result + (message != null ? message.hashCode() : 0);
+        return result;
     }
 }

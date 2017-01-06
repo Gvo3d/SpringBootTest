@@ -3,7 +3,6 @@ package projectpackage.model.AuthEntities;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.Set;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -29,14 +28,14 @@ public class User {
     @Column(name = "PSWD")
     private String password;
 
-    @OneToOne
-    private UserStatistic userStatistic;
+//    @OneToOne
+//    private UserStatistic userStatistic;
 
 //    private AuthorizationCredentials authorizationCredentials;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "USER_ROLES", joinColumns = @JoinColumn(name = "UR_USER_ID"), inverseJoinColumns = @JoinColumn(name = "UR_ROLE_ID"))
-    private Set<Roles> roles;
+//    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//    @JoinTable(name = "USER_ROLES", joinColumns = @JoinColumn(name = "UR_USER_ID"), inverseJoinColumns = @JoinColumn(name = "UR_ROLE_ID"))
+//    private Set<Roles> roles = new HashSet<>();
 
     @Column(name = "USER_ENABLED")
     private boolean enabled;
@@ -70,8 +69,8 @@ public class User {
                 ", username='" + username + '\'' +
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
-                ", userStatistic=" + userStatistic +
-                ", roles=" + roles +
+//                ", userStatistic=" + userStatistic +
+//                ", roles=" + roles +
                 ", enabled=" + enabled +
                 '}';
     }

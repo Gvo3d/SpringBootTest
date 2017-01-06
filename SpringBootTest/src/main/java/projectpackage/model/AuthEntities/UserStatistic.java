@@ -23,7 +23,7 @@ public class UserStatistic {
     @Column(name = "US_VIEWED_COUNT")
     private long viewedCount;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = User.class, orphanRemoval = true)
-    @PrimaryKeyJoinColumn
-    private User user;
+//    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = User.class, orphanRemoval = true, mappedBy = "userStatistic")
+//    @PrimaryKeyJoinColumn
+//    private User user;
 }

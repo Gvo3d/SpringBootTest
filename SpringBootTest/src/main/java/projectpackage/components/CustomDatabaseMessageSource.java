@@ -12,7 +12,7 @@ import java.util.Locale;
 import java.util.Map;
 
 
-public class AbstractDatabaseMessageSource extends AbstractMessageSource {
+public class CustomDatabaseMessageSource extends AbstractMessageSource {
     private Messages messages;
     private String defaultLocale;
     @Autowired
@@ -59,23 +59,19 @@ public class AbstractDatabaseMessageSource extends AbstractMessageSource {
         public void addMessage(String code, Locale locale, String msg) {
             if (messagesData == null) {
                 messagesData = new HashMap<String, Map<Locale, String>>();
-                System.out.println("Creating messagesData");
             }
 
             Map<Locale, String> data = messagesData.get(code);
             if (data == null) {
-                System.out.println("Data for message '"+code+"' is null");
                 data = new HashMap<Locale, String>();
                 messagesData.put(code, data);
             }
-            System.out.println("Putting data for this message: locale="+locale+" message="+msg);
             data.put(locale, msg);
         }
 
         public String getMessage(String code, Locale locale) {
             Map<Locale, String> data = messagesData.get(code);
             for (Map.Entry entry:data.entrySet()){
-                System.out.println("Entry key="+entry.getKey()+ " value="+entry.getValue());
             }
             String result = data != null ? data.get(locale) : data.get(new Locale.Builder().setLanguage(defaultLocale).setRegion(defaultLocale.toUpperCase()).build());
             return result;
