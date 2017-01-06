@@ -1,15 +1,14 @@
 package projectpackage.model.AuthEntities;
 
-import lombok.Data;
-
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
 /**
  * Created by Gvozd on 31.12.2016.
  */
-@Data
 @Entity
 @Table(name="USERS")
 public class User {
@@ -28,17 +27,74 @@ public class User {
     @Column(name = "PSWD")
     private String password;
 
-//    @OneToOne
-//    private UserStatistic userStatistic;
+    @OneToOne(targetEntity = UserStatistic.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL,  orphanRemoval = true, mappedBy = "user")
+    @PrimaryKeyJoinColumn(name="USER_STATISTIC_ID", referencedColumnName = "USER_ID")
+    private UserStatistic userStatistic;
 
 //    private AuthorizationCredentials authorizationCredentials;
 
-//    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//    @JoinTable(name = "USER_ROLES", joinColumns = @JoinColumn(name = "UR_USER_ID"), inverseJoinColumns = @JoinColumn(name = "UR_ROLE_ID"))
-//    private Set<Roles> roles = new HashSet<>();
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "USER_ROLES", joinColumns = @JoinColumn(name = "UR_USER_ID"), inverseJoinColumns = @JoinColumn(name = "UR_ROLE_ID"))
+    private Set<Role> roles = new HashSet<>();
 
     @Column(name = "USER_ENABLED")
     private boolean enabled;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public UserStatistic getUserStatistic() {
+        return userStatistic;
+    }
+
+    public void setUserStatistic(UserStatistic userStatistic) {
+        this.userStatistic = userStatistic;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -69,8 +125,8 @@ public class User {
                 ", username='" + username + '\'' +
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
-//                ", userStatistic=" + userStatistic +
-//                ", roles=" + roles +
+                ", userStatistic=" + userStatistic +
+                ", roles=" + roles +
                 ", enabled=" + enabled +
                 '}';
     }
