@@ -62,8 +62,8 @@ public class RepositoryTests extends AbstractDatabaseTest {
         UserStatistic userStatistic = new UserStatistic();
         user.setUserStatistic(userStatistic);
         System.out.println(userRepository.save(user));
-        userStatistic.setUser(user);
 
+        userStatistic.setUser(user);
         System.out.println(userStatisticRepository.save(userStatistic));
         System.out.println("****************************************************************");
 

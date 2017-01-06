@@ -10,7 +10,7 @@ import static javax.persistence.GenerationType.IDENTITY;
  * Created by Gvozd on 31.12.2016.
  */
 @Entity
-@Table(name = "USERS")
+@Table(name="USERS")
 public class User {
 
     @Id
@@ -27,8 +27,8 @@ public class User {
     @Column(name = "PSWD")
     private String password;
 
-    @OneToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "USER_US_ID", unique=true, nullable=false)
+    @OneToOne(targetEntity = UserStatistic.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL,  orphanRemoval = true, mappedBy = "user")
+    @PrimaryKeyJoinColumn(name="USER_STATISTIC_ID", referencedColumnName = "USER_ID")
     private UserStatistic userStatistic;
 
 //    private AuthorizationCredentials authorizationCredentials;
