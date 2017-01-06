@@ -28,6 +28,7 @@ public class CustomDatabaseMessageSource extends AbstractMessageSource {
 
     @Override
     protected MessageFormat resolveCode(String code, Locale locale) {
+
         String msg = messages.getMessage(code, locale);
         return createMessageFormat(msg, locale);
     }
@@ -39,7 +40,8 @@ public class CustomDatabaseMessageSource extends AbstractMessageSource {
             System.out.println(im.toString());
             String code = im.getCode();
             String stringLocale = im.getStringLocale();
-            messages.addMessage(code, new Locale.Builder().setLanguage(stringLocale).setRegion(stringLocale.toUpperCase()).build(), im.getMessage());
+            messages.addMessage(code, new Locale(stringLocale), im.getMessage());
+//            new Locale.Builder().setLanguage(stringLocale).setRegion(stringLocale.toUpperCase()).build()
         }
         if (defaultLocale != null) {
             messages.setDefaultLocale(defaultLocale);
