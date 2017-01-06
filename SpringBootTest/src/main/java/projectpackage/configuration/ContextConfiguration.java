@@ -3,7 +3,6 @@ package projectpackage.configuration;
 import lombok.extern.log4j.Log4j;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
@@ -16,7 +15,7 @@ import java.util.Properties;
  * Created by Gvozd on 30.12.2016.
  */
 @Log4j
-@Configuration
+//@Configuration
 public class ContextConfiguration {
 
     //    JdbcTemplate for internationalized messages loading

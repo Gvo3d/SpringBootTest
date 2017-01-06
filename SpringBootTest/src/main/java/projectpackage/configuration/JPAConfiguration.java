@@ -1,5 +1,6 @@
 package projectpackage.configuration;
 
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,11 +14,12 @@ import org.springframework.transaction.annotation.TransactionManagementConfigure
 import projectpackage.Application;
 
 import javax.sql.DataSource;
+import java.beans.PropertyVetoException;
 import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackageClasses = Application.class, entityManagerFactoryRef="entityManagerFactory")
+@EnableJpaRepositories(basePackageClasses = Application.class)
 public class JPAConfiguration implements TransactionManagementConfigurer {
 
     @Value("${dataSource.driverClassName}")
@@ -36,13 +38,22 @@ public class JPAConfiguration implements TransactionManagementConfigurer {
 
     @Bean
     public DataSource dataSource() {
-        HikariConfig config = new HikariConfig();
-        config.setDriverClassName(driver);
-        config.setJdbcUrl(url);
-        config.setUsername(username);
-        config.setPassword(password);
+        ComboPooledDataSource comboPooledDataSource = new ComboPooledDataSource();
+        try {
+            Class.forName(driver);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            comboPooledDataSource.setDriverClass(driver);
+        } catch (PropertyVetoException e) {
+            e.printStackTrace();
+        }
+        comboPooledDataSource.setJdbcUrl(url);
+        comboPooledDataSource.setUser(username);
+        comboPooledDataSource.setPassword(password);
 
-        return new HikariDataSource(config);
+        return comboPooledDataSource;
     }
 
     @Bean
@@ -56,11 +67,11 @@ public class JPAConfiguration implements TransactionManagementConfigurer {
         jpaProperties.put(org.hibernate.cfg.Environment.DIALECT, dialect);
         jpaProperties.put(org.hibernate.cfg.Environment.HBM2DDL_AUTO, hbm2ddlAuto);
         entityManagerFactoryBean.setJpaProperties(jpaProperties);
-
+        entityManagerFactoryBean.setDataSource(dataSource());
         return entityManagerFactoryBean;
     }
 
-    @Bean
+    @Bean(name = "transactionManager")
     public PlatformTransactionManager annotationDrivenTransactionManager() {
         return new JpaTransactionManager();
     }

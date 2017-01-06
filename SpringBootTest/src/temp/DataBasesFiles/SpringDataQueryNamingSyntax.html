@@ -2719,7 +2719,7 @@ userRepository</span><span class="pun">.</span><span class="pln">findAll</span><
                             </ul>
                         </div>
                         <div class="paragraph">
-                            <p>Assume we have 30 Person instances in the database. You can now trigger a request <code>GET
+                            <p>Assume we have 30 Person instances in the tests. You can now trigger a request <code>GET
                                 <a href="http://localhost:8080/persons"
                                    class="bare">http://localhost:8080/persons</a></code> and you’ll see something
                                 similar to this:</p>
@@ -3469,7 +3469,7 @@ userRepository</span><span class="pun">.</span><span class="pln">findAll</span><
                         </table>
                     </div>
                     <div class="paragraph">
-                        <p>The just shown configuration class sets up an embedded HSQL database using the <code>EmbeddedDatabaseBuilder</code>
+                        <p>The just shown configuration class sets up an embedded HSQL tests using the <code>EmbeddedDatabaseBuilder</code>
                             API of spring-jdbc. We then set up a <code>EntityManagerFactory</code> and use Hibernate as
                             sample persistence provider. The last infrastructure component declared here is the <code>JpaTransactionManager</code>.
                             We finally activate Spring Data JPA repositories using the
@@ -3843,7 +3843,7 @@ userRepository</span><span class="pun">.</span><span class="pln">findAll</span><
                                             annotation. The queries for these configuration elements have to be defined
                                             in JPA query language. Of course you can use <code>&lt;named-native-query /&gt;</code>
                                             or <code>@NamedNativeQuery</code> too. These elements allow you to define
-                                            the query in native SQL by losing the database platform independence.</p>
+                                            the query in native SQL by losing the tests platform independence.</p>
                                     </div>
                                 </td>
                             </tr>
@@ -5040,7 +5040,7 @@ CREATE procedure plus1inout </span><span class="pun">(</span><span class="pln">I
                 </div>
                 <div class="exampleblock">
                     <div class="title">Example 65. Referencing implicitly mapped procedure with name "plus1inout" in
-                        database via <code>procedureName</code> alias.
+                        tests via <code>procedureName</code> alias.
                     </div>
                     <div class="content">
                         <div class="listingblock">
@@ -7054,7 +7054,7 @@ person</span><span class="pun">.</span><span class="pln">setFirstname</span><spa
                 <div class="qlist qanda">
                     <ol>
                         <li>
-                            <p><em>I want to use Spring Data JPA auditing capabilities but have my database already set
+                            <p><em>I want to use Spring Data JPA auditing capabilities but have my tests already set
                                 up to set modification and creation date on entities. How to prevent Spring Data from
                                 setting the date programmatically.</em></p>
                             <p>Just use the <code>set-dates</code> attribute of the <code>auditing</code> namespace

@@ -2,25 +2,29 @@ package projectpackage.components;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.AbstractMessageSource;
-import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.ResultSetExtractor;
+import projectpackage.model.Internationalization.InterMessage;
+import projectpackage.repositories.InternationalizationRepositories.InterMessageRepository;
 
 import javax.annotation.PostConstruct;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
 
-public abstract class AbstractDatabaseMessageSource extends AbstractMessageSource {
+public class AbstractDatabaseMessageSource extends AbstractMessageSource {
     private Messages messages;
     private String defaultLocale;
-
     @Autowired
-    private JdbcTemplate jdbcTemplate;
+    private InterMessageRepository interMessageRepository;
+
+    public String getDefaultLocale() {
+        return defaultLocale;
+    }
+
+    public void setDefaultLocale(String defaultLocale) {
+        this.defaultLocale = defaultLocale;
+    }
 
     @Override
     protected MessageFormat resolveCode(String code, Locale locale) {
@@ -30,45 +34,21 @@ public abstract class AbstractDatabaseMessageSource extends AbstractMessageSourc
 
     @PostConstruct
     public void init() {
-        String i18nQuery = this.getI18NSqlQuery();
-        this.messages = jdbcTemplate.query(i18nQuery, new ResultSetExtractor<Messages>() {
-            @Override
-            public Messages extractData(ResultSet rs)
-                    throws SQLException, DataAccessException {
-                return extractI18NData(rs);
-            }
-        });
-        if (defaultLocale!=null){
+        messages = new Messages();
+        for (InterMessage im : interMessageRepository.findAll()) {
+            System.out.println(im.toString());
+            String code = im.getCode();
+            String stringLocale = im.getStringLocale();
+            messages.addMessage(code, new Locale.Builder().setLanguage(stringLocale).setRegion(stringLocale.toUpperCase()).build(), im.getMessage());
+        }
+        if (defaultLocale != null) {
             messages.setDefaultLocale(defaultLocale);
         }
-
+        System.out.println(messages.toString());
     }
-
-    public void setDefaultLocale(String defaultLocale) {
-        this.defaultLocale = defaultLocale;
-    }
-
-    /**
-     * Returns sql query used to fetch the messages from the database.
-     *
-     * @return sql query string
-     */
-    protected abstract String getI18NSqlQuery();
-
-    /**
-     * Extracts messages from the given result set.
-     *
-     * @param rs is a result set
-     * @return initialized {@link Messages} instance
-     * @throws SQLException        if a SQLException is encountered getting column values or
-     *                             navigating (that is, there's no need to catch SQLException)
-     * @throws DataAccessException in case of custom exceptions
-     */
-    protected abstract Messages extractI18NData(ResultSet rs)
-            throws SQLException, DataAccessException;
 
     protected static final class Messages {
-
+        private Map<String, Map<Locale, String>> messagesData;
         private String defaultLocale;
 
         public void setDefaultLocale(String defaultLocale) {
@@ -76,27 +56,42 @@ public abstract class AbstractDatabaseMessageSource extends AbstractMessageSourc
         }
 
         /* <code, <locale, message>> */
-        private Map<String, Map<Locale, String>> messages;
-
         public void addMessage(String code, Locale locale, String msg) {
-            if (messages == null) {
-                messages = new HashMap<String, Map<Locale, String>>();
+            if (messagesData == null) {
+                messagesData = new HashMap<String, Map<Locale, String>>();
+                System.out.println("Creating messagesData");
             }
 
-            Map<Locale, String> data = messages.get(code);
+            Map<Locale, String> data = messagesData.get(code);
             if (data == null) {
+                System.out.println("Data for message '"+code+"' is null");
                 data = new HashMap<Locale, String>();
-                messages.put(code, data);
+                messagesData.put(code, data);
             }
-
+            System.out.println("Putting data for this message: locale="+locale+" message="+msg);
             data.put(locale, msg);
         }
 
         public String getMessage(String code, Locale locale) {
-            Map<Locale, String> data = messages.get(code);
+            Map<Locale, String> data = messagesData.get(code);
+            for (Map.Entry entry:data.entrySet()){
+                System.out.println("Entry key="+entry.getKey()+ " value="+entry.getValue());
+            }
             String result = data != null ? data.get(locale) : data.get(new Locale.Builder().setLanguage(defaultLocale).setRegion(defaultLocale.toUpperCase()).build());
             return result;
         }
 
+        @Override
+        public String toString() {
+            StringBuilder sb = new StringBuilder();
+            for (Map.Entry entry:messagesData.entrySet()){
+                sb.append("Entry for "+entry.getKey()+" is:");
+                Map<Locale, String> innerMap = (Map) entry.getValue();
+                for (Map.Entry entry2:innerMap.entrySet()){
+                    sb.append("Inner entry: key="+entry2.getKey()+" value="+entry2.getValue());
+                }
+            }
+            return sb.toString();
+        }
     }
 }

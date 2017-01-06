@@ -18,4 +18,4 @@ insert into USER_STATISTIC (USER_STATISTIC_ID) values ('2');
 insert into USER_STATISTIC (USER_STATISTIC_ID) values ('3');
 insert into USER_STATISTIC (USER_STATISTIC_ID) values ('4');
 
-insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA) values ('database.label', 'RU', '"NJCERFGBPLW!');
+insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA) values ('tests.label', 'ru', '"NJCERFGBPLW!');
