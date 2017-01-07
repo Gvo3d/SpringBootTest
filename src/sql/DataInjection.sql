@@ -21,3 +21,6 @@ insert into USER_ROLES (UR_USER_ID, UR_ROLE_ID) values ('4', '2');
 
 
 insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA) values ('database.label', 'ru', 'Хуйня');
+insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA) values ('login.emptyField', 'ru', 'Поле не должно быть пустым');
+insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA) values ('login.notEnoughtCharacters', 'ru', 'Количество символов недостаточно');
+insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA) values ('login.loginError', 'ru', 'Логин/пароль не найден');
