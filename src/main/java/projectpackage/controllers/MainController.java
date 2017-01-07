@@ -1,6 +1,7 @@
 package projectpackage.controllers;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -12,7 +13,7 @@ import java.sql.Timestamp;
 @RestController
 public class MainController {
 
-    @RequestMapping("/")
+    @RequestMapping(value = {"/", "welcome"}, method = RequestMethod.GET)
     ModelAndView home() {
         ModelAndView mav = new ModelAndView();
         Timestamp tms = new Timestamp(System.currentTimeMillis());

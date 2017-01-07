@@ -27,6 +27,9 @@ public class User {
     @Column(name = "PSWD")
     private String password;
 
+    @Transient
+    private String confirmPassword;
+
     @OneToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "USER_US_ID", unique=true, nullable=false)
     private UserStatistic userStatistic;
@@ -70,6 +73,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 
     public UserStatistic getUserStatistic() {

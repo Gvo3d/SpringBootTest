@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>LogoutForm</title>
+</head>
+<body>
+<a href="logout.html"
+   th:href="@{/logout}"
+   th:if="${not #lists.isEmpty(prod.comments)}">view</a>
+</body>
+</html>

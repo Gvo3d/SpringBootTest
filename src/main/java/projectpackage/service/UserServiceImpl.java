@@ -2,6 +2,7 @@ package projectpackage.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
 import projectpackage.model.AuthEntities.Role;
 import projectpackage.model.AuthEntities.User;
 import projectpackage.model.AuthEntities.UserStatistic;
@@ -16,6 +17,7 @@ import java.util.Set;
 /**
  * Created by Gvozd on 07.01.2017.
  */
+@Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -46,7 +48,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByUsername() {
-        return null;
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 }

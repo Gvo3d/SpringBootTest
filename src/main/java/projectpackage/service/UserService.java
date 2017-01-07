@@ -7,5 +7,5 @@ import projectpackage.model.AuthEntities.User;
  */
 public interface UserService {
     void save(User user);
-    User findByUsername();
+    User findByUsername(String username);
 }
