@@ -1,12 +1,20 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8">
     <title>LogoutForm</title>
 </head>
 <body>
-<a href="logout.html"
-   th:href="@{/logout}"
-   th:if="${not #lists.isEmpty(prod.comments)}">view</a>
+<div class="logout">
+    <form id="logoutForm" method="post" action="@{/logout}" th:unless="${session.LOGGEDINUSERNAME == null}">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+    </form>
+    <h2>Admin page <th th:text="${session.LOGGEDINUSERNAME}"/> | <a onclick="document.forms['logoutForm'].submit()"/></h2><br/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="/res/js/bootstrap.min.js"></script>
+
+</div>
 </body>
 </html>

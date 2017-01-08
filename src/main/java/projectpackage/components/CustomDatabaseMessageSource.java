@@ -28,6 +28,7 @@ public class CustomDatabaseMessageSource extends AbstractMessageSource {
 
     @Override
     protected MessageFormat resolveCode(String code, Locale locale) {
+        System.out.println("Searching message (code="+code+" locale="+locale.toString()+" )");
         String msg = messages.getMessage(code, locale);
         return createMessageFormat(msg, locale);
     }
@@ -41,6 +42,7 @@ public class CustomDatabaseMessageSource extends AbstractMessageSource {
             messages.addMessage(code, new Locale.Builder().setLanguage(stringLocale).setRegion(stringLocale.toUpperCase()).build(), im.getMessage());
         }
         if (defaultLocale != null) {
+            System.out.println("Setting default locale "+defaultLocale);
             messages.setDefaultLocale(defaultLocale);
         }
     }
@@ -70,6 +72,7 @@ public class CustomDatabaseMessageSource extends AbstractMessageSource {
         public String getMessage(String code, Locale locale) {
             Map<Locale, String> data = messagesData.get(code);
             for (Map.Entry entry:data.entrySet()){
+                System.out.println("Value of searchable message is "+entry.getValue());
             }
             String result = data != null ? data.get(locale) : data.get(new Locale.Builder().setLanguage(defaultLocale).setRegion(defaultLocale.toUpperCase()).build());
             return result;

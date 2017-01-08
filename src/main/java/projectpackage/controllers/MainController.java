@@ -13,7 +13,7 @@ import java.sql.Timestamp;
 @RestController
 public class MainController {
 
-    @RequestMapping(value = {"/", "welcome"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/", "index"}, method = RequestMethod.GET)
     ModelAndView home() {
         ModelAndView mav = new ModelAndView();
         Timestamp tms = new Timestamp(System.currentTimeMillis());

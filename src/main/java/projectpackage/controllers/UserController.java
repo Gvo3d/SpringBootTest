@@ -44,11 +44,12 @@ public class UserController {
         }
         userService.save(userForm);
         securityService.autologin(userForm.getUsername(), userForm.getConfirmPassword());
-        return "redirect:/welcome";
+        return "redirect:/index";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model, String error, String logout){
+
         if (error!=null){
             model.addAttribute("error", "Username or password incorrect");
         }
@@ -65,8 +66,8 @@ public class UserController {
         return "admin";
     }
 
-    @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public String logout(HttpServletRequest request, HttpServletResponse response){
+    @RequestMapping(value = "/useronly", method = RequestMethod.GET)
+    public String useronly(HttpServletRequest request, HttpServletResponse response){
 
         return "/";
     }
