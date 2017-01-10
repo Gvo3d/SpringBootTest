@@ -40,7 +40,16 @@ public class RepositoryTests extends AbstractDatabaseTest {
         System.out.println("****************************************************************");
         System.out.println(userRepository.findOne(2L).toString());
         System.out.println("****************************************************************");
+    }
 
+    @Test
+    @Rollback(true)
+    public void getUserByLogin(){
+        System.out.println(userRepository.toString());
+        System.out.println("****************************************************************");
+        User user = userRepository.findByLogin("qwerty");
+        System.out.println(user.toString());
+        System.out.println("****************************************************************");
     }
 
     @Test

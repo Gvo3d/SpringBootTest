@@ -102,7 +102,12 @@
             <version>5.2.5.Final</version>
         </dependency>
 
-
+        <!-- JDBC SQL logger-->
+        <dependency>
+            <groupId>org.lazyluke</groupId>
+            <artifactId>log4jdbc-remix</artifactId>
+            <version>0.2.7</version>
+        </dependency>
     </dependencies>
 
 

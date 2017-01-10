@@ -1,6 +1,9 @@
 package tests.database;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import net.sf.log4jdbc.Log4jdbcProxyDataSource;
+import net.sf.log4jdbc.tools.Log4JdbcCustomFormatter;
+import net.sf.log4jdbc.tools.LoggingType;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -62,7 +65,17 @@ public class TestJPAConfig implements TransactionManagementConfigurer {
     }
 
     @Bean
-    DataSource dataSource() {
+    public DataSource dataSource(){
+        Log4jdbcProxyDataSource dataSource = new Log4jdbcProxyDataSource(customDataSource());
+        Log4JdbcCustomFormatter log4JdbcCustomFormatter = new Log4JdbcCustomFormatter();
+        log4JdbcCustomFormatter.setLoggingType(LoggingType.SINGLE_LINE);
+        log4JdbcCustomFormatter.setSqlPrefix("SQL:::");
+        dataSource.setLogFormatter(log4JdbcCustomFormatter);
+        return dataSource;
+    }
+
+    @Bean
+    DataSource customDataSource() {
 
         try {
             Class.forName(driver);

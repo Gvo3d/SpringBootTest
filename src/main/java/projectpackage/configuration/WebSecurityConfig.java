@@ -26,12 +26,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests()
+                .formLogin().loginPage("/login").usernameParameter("login").passwordParameter("password").failureUrl("/login?error").defaultSuccessUrl("/", false)
+                .and().logout().logoutSuccessUrl("/login?logout")
+                .and().authorizeRequests()
                 .antMatchers("/", "/home").permitAll()
-                .antMatchers("/admin").access("hasRole('ROLE_ADMIN')")
-                .antMatchers("/useronly").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-                .and().formLogin().loginPage("/login").usernameParameter("username").passwordParameter("password").failureForwardUrl("/login?error").defaultSuccessUrl("/", false)
-                .and().logout().logoutSuccessUrl("/login?logout");
+                .antMatchers("/admin").hasRole("ADMIN")
+                .antMatchers("/useronly").hasAnyRole("USER", "ADMIN");
     }
 
     @Autowired
@@ -49,5 +49,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected UserDetailsService userDetailsService() {
         return new UserDetailsServiceImpl();
     }
-
 }

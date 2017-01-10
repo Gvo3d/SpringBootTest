@@ -2,7 +2,6 @@ package projectpackage.service;
 
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -28,26 +27,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Transactional(readOnly = true)
     @Override
-    public UserDetails loadUserByUsername(String s){
+    public UserDetails loadUserByUsername(String s) {
         User user = null;
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-        try {
-            user = userRepository.findByUsername(s);
-            for (Role role: user.getRoles()){
-                log.warn("AUTHORITY is "+role.toString());
-                grantedAuthorities.add(new SimpleGrantedAuthority(role.getRoleName()));
-            }
-        } catch (Exception e){
-            log.info("***************************************************************************************");
-            log.warn("Exception in finding user by username");
-            log.warn("Was trying to find user by username: "+s);
-            if (user!=null){
-                log.warn("Loaded user: "+user.toString());
-            } else System.out.println("USER RETURNED: NULL");
-            log.warn("Exception message: "+e.getMessage());
-            log.warn("Exception stacktrace: "+e.getStackTrace());
-            throw new InternalAuthenticationServiceException(e.getMessage(), e);
-        }
+        user = userRepository.findByLogin(s);
+        for (Role role : user.getRoles()) grantedAuthorities.add(new SimpleGrantedAuthority(role.getRoleName()));
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), grantedAuthorities);
     }
 }

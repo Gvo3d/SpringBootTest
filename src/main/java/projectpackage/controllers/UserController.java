@@ -14,7 +14,6 @@ import projectpackage.validators.UserValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Map;
 
 /**
  * Created by Gvozd on 07.01.2017.
@@ -52,12 +51,6 @@ public class UserController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model, String error, String logout){
-
-        for (Map.Entry entry:model.asMap().entrySet()){
-            if (entry!=null){
-                System.out.println("Key="+entry.getKey()+" value="+entry.getValue());
-            } else System.out.println("Entry is null");
-        }
 
         if (error!=null){
             model.addAttribute("error", "Username or password incorrect");
