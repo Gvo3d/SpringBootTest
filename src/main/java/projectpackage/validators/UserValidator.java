@@ -26,16 +26,16 @@ public class UserValidator implements Validator{
     public void validate(Object o, Errors errors) {
         User user = (User) o;
         
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "login", "login.emptyField");
-        if (user.getLogin().length()<6 || user.getLogin().length()>32){
-            errors.rejectValue("login", "login.outOfBounds");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "login.emptyField");
+        if (user.getUsername().length()<5 || user.getUsername().length()>32){
+            errors.rejectValue("username", "login.outOfBounds");
         }
-        if (userService.findByLogin(user.getLogin())!=null){
-            errors.rejectValue("login", "userCreation.alreadyExist");
+        if (userService.findByUsername(user.getUsername())!=null){
+            errors.rejectValue("username", "userCreation.alreadyExist");
         }
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "login.emptyField");
-        if (user.getPassword().length()<8 || user.getPassword().length()>32){
+        if (user.getPassword().length()<5 || user.getPassword().length()>32){
             errors.rejectValue("password", "login.passOutOfBounds");
         }
         if (!user.getConfirmPassword().equals(user.getPassword())) {

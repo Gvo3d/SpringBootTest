@@ -18,11 +18,11 @@ public class User {
     @Column(name = "USER_ID")
     private long id;
 
+    @Column(name = "FULL_NAME")
+    private String fullname;
+
     @Column(name = "USER_NAME")
     private String username;
-
-    @Column(name = "LOGIN")
-    private String login;
 
     @Column(name = "PSWD")
     private String password;
@@ -59,12 +59,12 @@ public class User {
         this.username = username;
     }
 
-    public String getLogin() {
-        return login;
+    public String getFullname() {
+        return fullname;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
     }
 
     public String getPassword() {
@@ -115,16 +115,19 @@ public class User {
         User user = (User) o;
 
         if (isEnabled() != user.isEnabled()) return false;
+        if (getFullname() != null ? !getFullname().equals(user.getFullname()) : user.getFullname() != null)
+            return false;
         if (!getUsername().equals(user.getUsername())) return false;
-        if (!getLogin().equals(user.getLogin())) return false;
-        return getPassword().equals(user.getPassword());
+        if (!getPassword().equals(user.getPassword())) return false;
+        return getConfirmPassword() != null ? getConfirmPassword().equals(user.getConfirmPassword()) : user.getConfirmPassword() == null;
     }
 
     @Override
     public int hashCode() {
-        int result = getUsername().hashCode();
-        result = 31 * result + getLogin().hashCode();
+        int result = getFullname() != null ? getFullname().hashCode() : 0;
+        result = 31 * result + getUsername().hashCode();
         result = 31 * result + getPassword().hashCode();
+        result = 31 * result + (getConfirmPassword() != null ? getConfirmPassword().hashCode() : 0);
         result = 31 * result + (isEnabled() ? 1 : 0);
         return result;
     }
@@ -133,9 +136,10 @@ public class User {
     public String toString() {
         return "User{" +
                 "id=" + id +
+                ", fullname='" + fullname + '\'' +
                 ", username='" + username + '\'' +
-                ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
+                ", confirmPassword='" + confirmPassword + '\'' +
                 ", userStatistic=" + userStatistic +
                 ", roles=" + roles +
                 ", enabled=" + enabled +

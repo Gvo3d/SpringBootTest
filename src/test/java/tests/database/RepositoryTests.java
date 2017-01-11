@@ -47,7 +47,7 @@ public class RepositoryTests extends AbstractDatabaseTest {
     public void getUserByLogin(){
         System.out.println(userRepository.toString());
         System.out.println("****************************************************************");
-        User user = userRepository.findByLogin("qwerty");
+        User user = userRepository.findByUsername("qwerty");
         System.out.println(user.toString());
         System.out.println("****************************************************************");
     }
@@ -58,8 +58,8 @@ public class RepositoryTests extends AbstractDatabaseTest {
         System.out.println(userRepository.toString());
         System.out.println("****************************************************************");
         User user = new User();
-        user.setUsername("QuackUser");
-        user.setLogin("quack");
+        user.setFullname("QuackUser");
+        user.setUsername("quack");
         user.setPassword("quack");
         user.setEnabled(true);
 
