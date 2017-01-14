@@ -1,6 +1,7 @@
 package projectpackage.model.AuthEntities;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -30,11 +31,11 @@ public class User {
     @Transient
     private String confirmPassword;
 
-    @OneToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "USER_US_ID", unique=true, nullable=false)
-    private UserStatistic userStatistic;
+    @Column(name = "US_CREATED")
+    private Timestamp createdDate;
 
-//    private AuthorizationCredentials authorizationCredentials;
+    @Column(name = "US_VIEWED_COUNT")
+    private long viewedCount;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "USER_ROLES", joinColumns = @JoinColumn(name = "UR_USER_ID"), inverseJoinColumns = @JoinColumn(name = "UR_ROLE_ID"))
@@ -83,20 +84,28 @@ public class User {
         this.confirmPassword = confirmPassword;
     }
 
-    public UserStatistic getUserStatistic() {
-        return userStatistic;
-    }
-
-    public void setUserStatistic(UserStatistic userStatistic) {
-        this.userStatistic = userStatistic;
-    }
-
     public Set<Role> getRoles() {
         return roles;
     }
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public Timestamp getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Timestamp createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public long getViewedCount() {
+        return viewedCount;
+    }
+
+    public void setViewedCount(long viewedCount) {
+        this.viewedCount = viewedCount;
     }
 
     public boolean isEnabled() {
@@ -114,35 +123,18 @@ public class User {
 
         User user = (User) o;
 
-        if (isEnabled() != user.isEnabled()) return false;
-        if (getFullname() != null ? !getFullname().equals(user.getFullname()) : user.getFullname() != null)
-            return false;
+        if (getViewedCount() != user.getViewedCount()) return false;
+        if (!getFullname().equals(user.getFullname())) return false;
         if (!getUsername().equals(user.getUsername())) return false;
-        if (!getPassword().equals(user.getPassword())) return false;
-        return getConfirmPassword() != null ? getConfirmPassword().equals(user.getConfirmPassword()) : user.getConfirmPassword() == null;
+        return getCreatedDate() != null ? getCreatedDate().equals(user.getCreatedDate()) : user.getCreatedDate() == null;
     }
 
     @Override
     public int hashCode() {
-        int result = getFullname() != null ? getFullname().hashCode() : 0;
+        int result = getFullname().hashCode();
         result = 31 * result + getUsername().hashCode();
-        result = 31 * result + getPassword().hashCode();
-        result = 31 * result + (getConfirmPassword() != null ? getConfirmPassword().hashCode() : 0);
-        result = 31 * result + (isEnabled() ? 1 : 0);
+        result = 31 * result + (getCreatedDate() != null ? getCreatedDate().hashCode() : 0);
+        result = 31 * result + (int) (getViewedCount() ^ (getViewedCount() >>> 32));
         return result;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", fullname='" + fullname + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", confirmPassword='" + confirmPassword + '\'' +
-                ", userStatistic=" + userStatistic +
-                ", roles=" + roles +
-                ", enabled=" + enabled +
-                '}';
     }
 }
