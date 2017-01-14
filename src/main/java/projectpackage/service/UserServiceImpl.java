@@ -25,10 +25,8 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @Transactional
     public void save(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        System.out.println("IN SAVE METHOD");
         if (user.getFullname()==null || user.getFullname().equals("")){
             StringBuilder sb = new StringBuilder();
             String firstChar = user.getUsername().substring(0,1);
@@ -48,7 +46,6 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByUsername(username);
     }
 
-    @Transactional
     public User findOne(Long id) {
         return userRepository.findOne(id);
     }

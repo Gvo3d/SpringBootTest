@@ -137,4 +137,19 @@ public class User {
         result = 31 * result + (int) (getViewedCount() ^ (getViewedCount() >>> 32));
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", fullname='" + fullname + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", confirmPassword='" + confirmPassword + '\'' +
+                ", createdDate=" + createdDate +
+                ", viewedCount=" + viewedCount +
+                ", roles=" + roles +
+                ", enabled=" + enabled +
+                '}';
+    }
 }

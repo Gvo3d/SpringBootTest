@@ -15,6 +15,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.TransactionManagementConfigurer;
 import projectpackage.Application;
+import projectpackage.service.UserService;
 import projectpackage.service.UserServiceImpl;
 
 import javax.sql.DataSource;
@@ -127,7 +128,7 @@ public class TestJPAConfig implements TransactionManagementConfigurer {
     }
 
     @Bean
-    UserServiceImpl userServiceImpl(){
+    UserService userService(){
         return new UserServiceImpl();
     }
 

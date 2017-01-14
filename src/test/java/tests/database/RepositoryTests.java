@@ -61,7 +61,6 @@ public class RepositoryTests extends AbstractDatabaseTest {
         Set<Role> newRolesSet = new HashSet<Role>();
         newRolesSet.add(role);
         user.setRoles(newRolesSet);
-        System.out.println("BEFORE SAVEING");
         userService.save(user);
         System.out.println(user);
         System.out.println("****************************************************************");
