@@ -41,7 +41,8 @@ public class UserController {
         System.out.println("controller: "+userForm.toString());
         userValidator.validate(userForm, bindingResult);
         if (bindingResult.hasErrors()){
-            return "registration";
+            model.addAttribute("error", bindingResult.getFieldErrors());
+            return "redirect:/registration";
         }
         userService.save(userForm);
         securityService.autologin(userForm.getUsername(), userForm.getConfirmPassword());

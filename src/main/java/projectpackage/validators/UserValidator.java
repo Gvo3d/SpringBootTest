@@ -29,6 +29,7 @@ public class UserValidator implements Validator{
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "login.emptyField");
         if (user.getUsername().length()<5 || user.getUsername().length()>32){
             errors.rejectValue("username", "login.outOfBounds");
+            System.out.println("VALIDATION ERROR - login.outOfBound");
         }
         if (userService.findByUsername(user.getUsername())!=null){
             errors.rejectValue("username", "userCreation.alreadyExist");
@@ -37,6 +38,7 @@ public class UserValidator implements Validator{
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "login.emptyField");
         if (user.getPassword().length()<5 || user.getPassword().length()>32){
             errors.rejectValue("password", "login.passOutOfBounds");
+            System.out.println("VALIDATION ERROR - login.passOutOfBound");
         }
         if (!user.getConfirmPassword().equals(user.getPassword())) {
             errors.rejectValue("confirmPassword", "userCreation.passwordConfirmFalse");

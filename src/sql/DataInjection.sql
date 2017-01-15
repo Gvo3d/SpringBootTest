@@ -3,15 +3,13 @@ USE `temp`;
 insert into ROLES (ROLE_NAME) values ('USER');
 insert into ROLES (ROLE_NAME) values ('ADMIN');
 
-insert into USERS (FULL_NAME, USER_NAME, PSWD) values ('System_Programmer', 'sysprog', 'sysprog');
-insert into USERS (FULL_NAME, USER_NAME, PSWD) values ('Admin', 'admin', 'admin');
-insert into USERS (FULL_NAME, USER_NAME, PSWD) values ('PlainUser', 'user', 'user');
-insert into USERS (FULL_NAME, USER_NAME, PSWD) values ('QwertyUser', 'qwerty', 'qwerty');
+insert into USERS (FULL_NAME, USER_NAME, PSWD) values ('System_Programmer', 'sysprog', '$2a$11$NKNItd8V/02afxJVGhFouefDE3R8YttZ0moUAA0.Grwu.keU7qE32');
+insert into USERS (FULL_NAME, USER_NAME, PSWD) values ('Admin', 'admin', '$2a$11$iXOUawTHBNAswdVWdHF9EuveOseXTB88egGfzBb.9Y.T.96ipQrte');
+insert into USERS (FULL_NAME, USER_NAME, PSWD) values ('QwertyUser', 'qwerty', '$2a$11$mYwze2v1YQgcj7kwvXLkOOWgwqwMwimWVaCloEzA0ibfLLEYcgxXm');
 
 insert into USER_ROLES (UR_USER_ID, UR_ROLE_ID) values ('1', '2');
 insert into USER_ROLES (UR_USER_ID, UR_ROLE_ID) values ('2', '2');
 insert into USER_ROLES (UR_USER_ID, UR_ROLE_ID) values ('3', '1');
-insert into USER_ROLES (UR_USER_ID, UR_ROLE_ID) values ('4', '1');
 
 
 

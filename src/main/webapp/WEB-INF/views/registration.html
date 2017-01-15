@@ -9,18 +9,35 @@
 </head>
 <body>
 
-<div class="container" sec:authorize="hasAuthority('ADMIN')">
+<!--<div sec:authorize="hasAuthority('ADMIN')"></div>-->
+
+<div class="container" >
+
+    <div th:if="${param.error}">
+        <tr> th:each="message : ${error}">
+            <td th:text="${message}"/>
+        </tr><br/>
+    </div>
+
 
     <form method="POST" th:action="@{/registration}" modelAttribute="userForm" class="form-signin">
         <h2 class="form-signin-heading">Create your account</h2>
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <input type="text" path="username" class="form-control" placeholder="Username"
-                            autofocus="true" th:field="*{userForm.username}" />
+                            autofocus="true" th:field="*{userForm.username}"/>
+                <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Incorrect username</p>
+                <!--<ul>-->
+                    <!--<li th:each="err : ${#fields.errors('username')}" th:text="${err}" />-->
+                <!--</ul>-->
 
             </div>
 
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <input type="password" path="password" class="form-control" placeholder="Password" th:field="*{userForm.password}" />
+                <input type="password" path="password" class="form-control" placeholder="Password" th:field="*{userForm.password}"/>
+                <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Incorrect username</p>
+                <!--<ul>-->
+                    <!--<li th:each="err : ${#fields.errors('password')}" th:text="${err}" />-->
+                <!--</ul>-->
 
             </div>
 
