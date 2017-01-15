@@ -37,10 +37,10 @@ public class SecurityServiceImpl implements SecurityService {
 
     @Override
     public void autologin(String username, String password) {
-        log.warn("SSI:autologin, username="+username+" password="+password);
+        log.warn("SecurityServiceImpl:autologin, username="+username+" password="+password);
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-        String encodedPassword = bCryptPasswordEncoder.encode(password);
-        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, encodedPassword, userDetails.getAuthorities());
+//        String encodedPassword = bCryptPasswordEncoder.encode(password);
+        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
         authenticationManager.authenticate(usernamePasswordAuthenticationToken);
         if (usernamePasswordAuthenticationToken.isAuthenticated()){
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);

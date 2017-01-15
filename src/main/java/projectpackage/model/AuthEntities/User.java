@@ -145,7 +145,6 @@ public class User {
                 ", fullname='" + fullname + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", confirmPassword='" + confirmPassword + '\'' +
                 ", createdDate=" + createdDate +
                 ", viewedCount=" + viewedCount +
                 ", roles=" + roles +

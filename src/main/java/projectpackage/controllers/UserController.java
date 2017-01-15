@@ -38,6 +38,7 @@ public class UserController {
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String registrationHandler(@ModelAttribute("userFrom") User userForm, BindingResult bindingResult, Model model){
+        System.out.println("controller: "+userForm.toString());
         userValidator.validate(userForm, bindingResult);
         if (bindingResult.hasErrors()){
             return "registration";
@@ -68,6 +69,6 @@ public class UserController {
 
     @RequestMapping(value = "/useronly", method = RequestMethod.GET)
     public String useronly(HttpServletRequest request, HttpServletResponse response){
-        return "/";
+        return "index";
     }
 }

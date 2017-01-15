@@ -45,6 +45,7 @@ public class UserServiceImpl implements UserService {
         user.setRoles(newRolesSet);
         user.setViewedCount(0);
         user.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+        user.setEnabled(true);
         userRepository.save(user);
     }
 

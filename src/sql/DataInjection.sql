@@ -24,3 +24,4 @@ insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA, IM_COMMENT) val
 insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA, IM_COMMENT) values ('userCreation.passwordConfirmFalse', 'ru', 'Поля пароль и подтверждение пароля не совпадают', 'Форма создания пользователя - проверка на совпадение двух паролей');
 insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA, IM_COMMENT) values ('AbstractAccessDecisionManager.accessDenied', 'ru', 'Вход запрещён', 'Spring Message - 403 (Access denied)');
 insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA, IM_COMMENT) values ('AbstractUserDetailsAuthenticationProvider.onlySupports', 'ru', 'Only UsernamePasswordAuthenticationToken is supported', 'Special Spring Error Message');
+insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA, IM_COMMENT) values ('AbstractUserDetailsAuthenticationProvider.badCredentials', 'ru', 'Login or password is incorrect', 'Ошибка логина/пароля');

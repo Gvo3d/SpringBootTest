@@ -8,18 +8,16 @@
 </head>
 <body>
 <div th:if="${param.error}">
-    Invalid username and password.
+    <th th:text="${error}"/><br/>
 </div>
 <div th:if="${param.logout}">
-    You have been logged out.
+    <th th:text="${message}"/><br/>
 </div>
 <form class="form-signin" action="/login" th:action="@{/login}" method="post">
     <div><label> User Name : <input type="text" name="username" class="form-control" placeholder="Username"
                                     autofocus="true"/> </label></div>
-    <span>${message}</span>
     <div><label> Password: <input type="password" name="password" class="form-control" placeholder="Password"/> </label>
     </div>
-    <span>${error}</span>
     <div><input type="submit" value="Sign In"/></div>
     <h4 class="text-center"><a href="/registration">Create an account</a></h4>
 </form>

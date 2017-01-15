@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -30,21 +31,31 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin().loginPage("/login").usernameParameter("username").passwordParameter("password").failureUrl("/login?error").defaultSuccessUrl("/", false)
                 .and().logout().logoutSuccessUrl("/login?logout").invalidateHttpSession(true).logoutUrl("/logout").logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .and().authorizeRequests()
+                .antMatchers("/res/**").permitAll()
+                .antMatchers("/dynamic/**").permitAll()
                 .antMatchers("/", "/home").permitAll()
                 .antMatchers("/registration").anonymous()
                 .antMatchers("/admin").hasAuthority("ADMIN")
-                .antMatchers("/useronly").hasAnyRole("USER", "ADMIN");
+                .antMatchers("/useronly").hasAnyAuthority("USER", "ADMIN");
     }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService());
+        auth.authenticationProvider(authenticationProvider());
     }
 
     @Bean
     BCryptPasswordEncoder encoder() {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(11);
         return encoder;
+    }
+
+    @Bean
+    DaoAuthenticationProvider authenticationProvider(){
+        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+        authenticationProvider.setPasswordEncoder(encoder());
+        authenticationProvider.setUserDetailsService(userDetailsService());
+        return authenticationProvider;
     }
 
     @Bean
