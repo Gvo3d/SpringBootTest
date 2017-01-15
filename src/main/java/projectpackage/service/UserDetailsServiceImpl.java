@@ -32,6 +32,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         user = userRepository.findByUsername(s);
 
+        if (user==null) return null;
         System.out.println(user.toString());
         for (Role role : user.getRoles()) {
             System.out.println("Simple Role: "+role.getRoleName());

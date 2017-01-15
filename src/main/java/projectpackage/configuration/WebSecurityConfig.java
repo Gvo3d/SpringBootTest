@@ -16,6 +16,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import projectpackage.service.UserDetailsServiceImpl;
 
 @Configuration
@@ -27,9 +28,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .formLogin().loginPage("/login").usernameParameter("username").passwordParameter("password").failureUrl("/login?error").defaultSuccessUrl("/", false)
-                .and().logout().logoutSuccessUrl("/login?logout")
+                .and().logout().logoutSuccessUrl("/login?logout").invalidateHttpSession(true).logoutUrl("/logout").logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .and().authorizeRequests()
                 .antMatchers("/", "/home").permitAll()
+                .antMatchers("/registration").anonymous()
                 .antMatchers("/admin").hasAuthority("ADMIN")
                 .antMatchers("/useronly").hasAnyRole("USER", "ADMIN");
     }

@@ -3,12 +3,15 @@ package projectpackage.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import projectpackage.model.AuthEntities.Role;
 import projectpackage.model.AuthEntities.User;
 import projectpackage.repositories.AuthRepositories.RolesRepository;
 import projectpackage.repositories.AuthRepositories.UserRepository;
 
 import javax.transaction.Transactional;
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Gvozd on 07.01.2017.
@@ -36,6 +39,10 @@ public class UserServiceImpl implements UserService {
         } else {
             user.setFullname(user.getFullname().trim());
         }
+        Role firstUserRole = rolesRepository.findOne(1);
+        Set<Role> newRolesSet = new HashSet<Role>();
+        newRolesSet.add(firstUserRole);
+        user.setRoles(newRolesSet);
         user.setViewedCount(0);
         user.setCreatedDate(new Timestamp(System.currentTimeMillis()));
         userRepository.save(user);

@@ -5,28 +5,28 @@
     <meta charset="UTF-8">
     <title>Registration</title>
     </meta>
+    <sec:csrfMetaTags/>
 </head>
 <body>
 
-<div class="container">
+<div class="container" sec:authorize="hasAuthority('ADMIN')">
 
-    <form method="POST" modelAttribute="userForm" class="form-signin">
+    <form method="POST" th:action="@{/registration}" modelAttribute="userForm" class="form-signin">
         <h2 class="form-signin-heading">Create your account</h2>
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <input type="text" path="username" class="form-control" placeholder="Username"
-                            autofocus="true" th:field="*{username}></input>
+                            autofocus="true" th:field="*{userForm.username}" />
 
             </div>
 
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <input type="password" path="password" class="form-control" placeholder="Password" th:field="*{password}></input>
+                <input type="password" path="password" class="form-control" placeholder="Password" th:field="*{userForm.password}" />
 
             </div>
 
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <input type="password" path="confirmPassword" class="form-control"
-                            placeholder="Confirm your password" th:field="*{confirmPassword}></input>
-
+                            placeholder="Confirm your password" th:field="*{userForm.confirmPassword}" />
             </div>
 
         <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
