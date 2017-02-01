@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<script type="text/javascript" src="jquery.js">
+</script>
+<script type="text/javascript" src="jquery-ui-1.10.4.custom.min.js">
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+var inputs = document.getElementsByTagName('input');
+for (a = 0; a < inputs.length; a++) {
+if (inputs[a].type == "checkbox") {
+var id = inputs[a].getAttribute("id");
+if (id==null){
+id=  "checkbox" +a;
+}
+inputs[a].setAttribute("id",id);
+var container = document.createElement('div');
+container.setAttribute("class", "ttr_checkbox");
+var label = document.createElement('label');
+label.setAttribute("for", id);
+$(inputs[a]).wrap(container).after(label);
+}
+}
+});
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+var inputs = document.getElementsByTagName('input');
+for (a = 0; a < inputs.length; a++) {
+if (inputs[a].type == "radio") {
+var id = inputs[a].getAttribute("id");
+if (id==null){
+id=  "radio" +a;
+}
+inputs[a].setAttribute("id",id);
+var container = document.createElement('div');
+container.setAttribute("class", "ttr_radio");
+var label = document.createElement('label');
+label.setAttribute("for", id);
+$(inputs[a]).wrap(container).after(label);
+}
+}
+});
+</script>
+<script type="text/javascript" src="bootstrap.min.js">
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+var window_height =  Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+var body_height = $(document.body).height();
+$content = $("#ttr_content_and_sidebar_container");
+if(body_height < window_height){
+differ = (window_height - body_height);
+content_height = $content.height() + differ;
+$("#ttr_content_and_sidebar_container").css("min-height", content_height+"px");
+}
+});
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+$('#nav-expander').on('click',function(e){
+e.preventDefault();
+$('body').toggleClass('nav-expanded');
+});
+});
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+$('ul.ttr_menu_items.nav li [data-toggle=dropdown]').on('click', function() {
+var window_width =  Math.max(document.documentElement.clientWidth, window.innerWidth || 0)
+if(window_width > 1025 && $(this).attr('href')){
+window.location.href = $(this).attr('href'); 
+}
+else{
+if($(this).parent().hasClass('open')){
+location.assign($(this).attr('href'));
+}
+}
+});
+});
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+$('ul.ttr_vmenu_items.nav li [data-toggle=dropdown]').on('click', function() {
+var window_width =  Math.max(document.documentElement.clientWidth, window.innerWidth || 0)
+if(window_width > 1025 && $(this).attr('href')){
+window.location.href = $(this).attr('href'); 
+}
+else{
+if($(this).parent().hasClass('open')){
+location.assign($(this).attr('href'));
+}
+}
+});
+});
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+$('.ttr_menu_items ul.dropdown-menu [data-toggle=dropdown]').on('click', function(event) { 
+var window_width =  Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+if(window_width < 1025){
+event.preventDefault();
+event.stopPropagation();
+$(this).parent().siblings().removeClass('open');
+$(this).parent().toggleClass(function() {
+if ($(this).is(".open") ) {
+window.location.href = $(this).children("[data-toggle=dropdown]").attr('href'); 
+return "";
+} else {
+return "open";
+}
+});
+}
+});
+});
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+$('.ttr_vmenu_items ul.dropdown-menu [data-toggle=dropdown]').on('click', function(event) { 
+var window_width =  Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+if(window_width < 1025){
+event.preventDefault();
+event.stopPropagation();
+$(this).parent().siblings().removeClass('open');
+$(this).parent().toggleClass(function() {
+if ($(this).is(".open") ) {
+window.location.href = $(this).children("[data-toggle=dropdown]").attr('href'); 
+return "";
+} else {
+return "open";
+}
+});
+}
+});
+});
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+var objects = ['iframe', 'video','object'];
+for(var i = 0 ; i < objects.length ; i++){
+if ($(objects[i]).length > 0) {
+$(objects[i]).addClass('embed-responsive-item');
+$(objects[i]).parent().addClass('embed-responsive embed-responsive-16by9');
+}
+}
+});
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Добавте сюда описание сайта" />
+<meta  name="keywords" content="Первое ключевое слово, второе ключевое слово," />
+<title>
+TemplateToaster.com
+</title>
+<link rel="stylesheet"  href="bootstrap.css" type="text/css" media="screen"/>
+<link rel="stylesheet"  href="style.css" type="text/css" media="screen"/>
+<!--[if lte IE 8]>
+<link rel="stylesheet"  href="menuie.css" type="text/css" media="screen"/>
+<link rel="stylesheet"  href="vmenuie.css" type="text/css" media="screen"/>
+<![endif]-->
+<script type="text/javascript" src="prefixfree.min.js">
+</script>
+<script type="text/javascript" src="totop.js">
+</script>
+<!--[if IE 7]>
+<style type="text/css" media="screen">
+#ttr_vmenu_items  li.ttr_vmenu_items_parent {margin-left:-16px;font-size:0px;}
+</style>
+<![endif]-->
+<!--[if lt IE 9]>
+<script type="text/javascript" src="html5shiv.js">
+</script>
+<script type="text/javascript" src="respond.min.js">
+</script>
+<![endif]-->
+</head>
+<body class="index">
+<div class="totopshow">
+<a href="#" class="back-to-top"><img alt="Back to Top" src="images/gototop0.png"/></a>
+</div>
+<div id="ttr_page" class="container">
+<nav id="ttr_menu" class="navbar-default navbar">
+   <div id="ttr_menu_inner_in">
+<div class="menuforeground">
+</div>
+<div id="navigationmenu">
+<div class="navbar-header">
+<button id="nav-expander" data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+<span class="sr-only">
+</span>
+<span class="icon-bar">
+</span>
+<span class="icon-bar">
+</span>
+<span class="icon-bar">
+</span>
+</button>
+</div>
+<div class="menu-center collapse navbar-collapse">
+<ul class="ttr_menu_items nav navbar-nav nav-center">
+<li class="ttr_menu_items_parent dropdown active"><a href="index.html" class="ttr_menu_items_parent_link_active"><span class="menuchildicon"></span>Home</a>
+<hr class ="horiz_separator"/>
+</li>
+<li class="ttr_menu_items_parent dropdown"><a href="about-us.html" class="ttr_menu_items_parent_link"><span class="menuchildicon"></span>AboutUs</a>
+<hr class ="horiz_separator"/>
+</li>
+<li class="ttr_menu_items_parent dropdown"><a href="contact.html" class="ttr_menu_items_parent_link"><span class="menuchildicon"></span>Contact</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</nav>
+<header id="ttr_header">
+<div id="ttr_header_inner">
+<div class="ttr_title_position">
+<h1 class="ttr_title_style ">
+<a href="#">
+Website Title
+</a>
+</h1>
+</div>
+<img  class="ttr_header_logo" src="logo.png">
+</img>
+</div>
+</header>
+<div id="ttr_content_and_sidebar_container">
+<div id="ttr_content">
+<div id="ttr_content_margin"class="container-fluid">
+<div style="height:0px;width:0px;overflow:hidden;-webkit-margin-top-collapse: separate;"></div>
+<div class="ttr_index_html_row0 row">
+<div class="post_column col-lg-12 col-md-6 col-sm-6 col-xs-12">
+<div class="ttr_index_html_column00">
+<div class="html_content" style="font-family:Times New Roman;font-size:12px;"><p style="line-height:20.88px;font-family:Times New Roman;font-size:12px;"><br style="font-family:&quot;Arial Unicode MS&quot;;font-size:12px;" /></p><p style="margin:2px 0px 0px 8px;line-height:20.88px;font-family:Times New Roman;font-size:12px;"><span style="font-family:&quot;Arial Unicode MS&quot;;font-size:24px;">Heading1</span></p><p style="line-height:20.88px;font-family:Times New Roman;font-size:12px;"><br style="font-family:&quot;Arial Unicode MS&quot;;font-size:12px;" /></p><p style="margin:2px 0px 0px 8px;line-height:20.88px;font-size:14px;font-family:Times New Roman;"><span style="font-family:&quot;Arial Unicode MS&quot;;font-size:12px;">Lorem ipsum dolor sit amet, test link adipiscing elit.Nullam dignissim convallis est.Quisque aliquam. Donec faucibus. Nunc iaculis suscipit dui.Nam sit amet sem. Aliquam libero nisi, imperdiet at, tincidunt nec, gravida vehicula, nisl.Praesent mattis, massa quis luctus fermentum, turpis mi volutpat justo, eu volutpat enim diam eget metus.Maecenas ornare tortor.</span></p></div>
+<div style="clear:both;"></div>
+</div>
+</div>
+<div class="clearfix visible-lg-block visible-xs-block">
+</div>
+<div class="post_column col-lg-12 col-md-6 col-sm-6 col-xs-12">
+<div class="ttr_index_html_column01">
+<div class="html_content" style="font-family:Times New Roman;font-size:12px;"><p style="line-height:20.88px;font-family:Times New Roman;font-size:12px;"><br style="font-family:&quot;Arial Unicode MS&quot;;font-size:12px;" /></p><p style="margin:2px 0px 0px 8px;line-height:20.88px;font-family:Times New Roman;font-size:12px;"><span style="font-family:&quot;Arial Unicode MS&quot;;font-size:24px;">Heading2</span></p><p style="line-height:20.88px;font-family:Times New Roman;font-size:12px;"><br style="font-family:&quot;Arial Unicode MS&quot;;font-size:12px;" /></p><p style="margin:2px 0px 0px 8px;line-height:20.88px;font-size:14px;font-family:Times New Roman;"><span style="font-family:&quot;Arial Unicode MS&quot;;font-size:12px;">Lorem ipsum dolor sit amet, test link adipiscing elit.Nullam dignissim convallis est.Quisque aliquam. Donec faucibus. Nunc iaculis suscipit dui.Nam sit amet sem. Aliquam libero nisi, imperdiet at, tincidunt nec, gravida vehicula, nisl.Praesent mattis, massa quis luctus fermentum, turpis mi volutpat justo, eu volutpat enim diam eget metus.Maecenas ornare tortor.</span></p></div>
+<div style="clear:both;"></div>
+</div>
+</div>
+<div class="clearfix visible-lg-block visible-sm-block visible-md-block visible-xs-block">
+</div>
+<div class="post_column col-lg-12 col-md-6 col-sm-6 col-xs-12">
+<div class="ttr_index_html_column02">
+<div class="html_content" style="font-family:Times New Roman;font-size:12px;"><p style="line-height:20.88px;font-family:Times New Roman;font-size:12px;"><br style="font-family:&quot;Arial Unicode MS&quot;;font-size:12px;" /></p><p style="margin:2px 0px 0px 8px;line-height:20.88px;font-family:Times New Roman;font-size:12px;"><span style="font-family:&quot;Arial Unicode MS&quot;;font-size:24px;">Heading3</span></p><p style="line-height:20.88px;font-family:Times New Roman;font-size:12px;"><br style="font-family:&quot;Arial Unicode MS&quot;;font-size:12px;" /></p><p style="margin:2px 0px 0px 8px;line-height:20.88px;font-size:14px;font-family:Times New Roman;"><span style="font-family:&quot;Arial Unicode MS&quot;;font-size:12px;">Lorem ipsum dolor sit amet, test link adipiscing elit.Nullam dignissim convallis est.Quisque aliquam. Donec faucibus. Nunc iaculis suscipit dui.Nam sit amet sem. Aliquam libero nisi, imperdiet at, tincidunt nec, gravida vehicula, nisl.Praesent mattis, massa quis luctus fermentum, turpis mi volutpat justo, eu volutpat enim diam eget metus.Maecenas ornare tortor.</span></p></div>
+<div style="clear:both;"></div>
+</div>
+</div>
+<div class="clearfix visible-lg-block visible-xs-block">
+</div>
+<div class="post_column col-lg-12 col-md-6 col-sm-6 col-xs-12">
+<div class="ttr_index_html_column03">
+<div class="html_content" style="font-family:Times New Roman;font-size:12px;"><p style="line-height:20.88px;font-family:Times New Roman;font-size:12px;"><br style="font-family:&quot;Arial Unicode MS&quot;;font-size:12px;" /></p><p style="margin:2px 0px 0px 8px;line-height:20.88px;font-family:Times New Roman;font-size:12px;"><span style="font-family:&quot;Arial Unicode MS&quot;;font-size:24px;">Heading4</span></p><p style="line-height:20.88px;font-family:Times New Roman;font-size:12px;"><br style="font-family:&quot;Arial Unicode MS&quot;;font-size:12px;" /></p><p style="margin:2px 0px 0px 8px;line-height:20.88px;font-size:14px;font-family:Times New Roman;"><span style="font-family:&quot;Arial Unicode MS&quot;;font-size:12px;">Lorem ipsum dolor sit amet, test link adipiscing elit.Nullam dignissim convallis est.Quisque aliquam. Donec faucibus. Nunc iaculis suscipit dui.Nam sit amet sem. Aliquam libero nisi, imperdiet at, tincidunt nec, gravida vehicula, nisl.Praesent mattis, massa quis luctus fermentum, turpis mi volutpat justo, eu volutpat enim diam eget metus.Maecenas ornare tortor.</span></p></div>
+<div style="clear:both;"></div>
+</div>
+</div>
+<div class="clearfix visible-lg-block visible-sm-block visible-md-block visible-xs-block">
+</div>
+</div>
+<div style="height:0px;width:0px;overflow:hidden;-webkit-margin-top-collapse: separate;"></div>
+</div>
+</div>
+<div style="clear:both">
+</div>
+</div>
+<div style="height:0px;width:0px;overflow:hidden;"></div>
+<footer id="ttr_footer">
+<div class="ttr_footer_bottom_footer">
+<div class="ttr_footer_bottom_footer_inner">
+<div id="ttr_footer_designed_by_links">
+<a href="http://templatetoaster.com">
+Website
+</a>
+<span id="ttr_footer_designed_by">
+Designed With TemplateToaster
+</span>
+</div>
+<div class="ttr_footer_rss">
+</div>
+<a href=""class="ttr_footer_facebook">
+</a>
+<a href=""class="ttr_footer_linkedin">
+</a>
+<a href=""class="ttr_footer_twitter">
+</a>
+<a href=""class="ttr_footer_googleplus">
+</a>
+</div>
+</div>
+</footer>
+<div style="height:0px;width:0px;overflow:hidden;-webkit-margin-bottom-collapse: separate;"></div>
+</div>
+</body>
+</html>
