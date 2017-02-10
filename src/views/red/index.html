@@ -71,7 +71,7 @@ $(document).ready(function(){
 $('ul.ttr_menu_items.nav li [data-toggle=dropdown]').on('click', function() {
 var window_width =  Math.max(document.documentElement.clientWidth, window.innerWidth || 0)
 if(window_width > 1025 && $(this).attr('href')){
-window.location.href = $(this).attr('href'); 
+window.location.href = $(this).attr('href');
 }
 else{
 if($(this).parent().hasClass('open')){
@@ -86,7 +86,7 @@ $(document).ready(function(){
 $('ul.ttr_vmenu_items.nav li [data-toggle=dropdown]').on('click', function() {
 var window_width =  Math.max(document.documentElement.clientWidth, window.innerWidth || 0)
 if(window_width > 1025 && $(this).attr('href')){
-window.location.href = $(this).attr('href'); 
+window.location.href = $(this).attr('href');
 }
 else{
 if($(this).parent().hasClass('open')){
@@ -98,7 +98,7 @@ location.assign($(this).attr('href'));
 </script>
 <script type="text/javascript">
 $(document).ready(function(){
-$('.ttr_menu_items ul.dropdown-menu [data-toggle=dropdown]').on('click', function(event) { 
+$('.ttr_menu_items ul.dropdown-menu [data-toggle=dropdown]').on('click', function(event) {
 var window_width =  Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
 if(window_width < 1025){
 event.preventDefault();
@@ -106,7 +106,7 @@ event.stopPropagation();
 $(this).parent().siblings().removeClass('open');
 $(this).parent().toggleClass(function() {
 if ($(this).is(".open") ) {
-window.location.href = $(this).children("[data-toggle=dropdown]").attr('href'); 
+window.location.href = $(this).children("[data-toggle=dropdown]").attr('href');
 return "";
 } else {
 return "open";
@@ -118,7 +118,7 @@ return "open";
 </script>
 <script type="text/javascript">
 $(document).ready(function(){
-$('.ttr_vmenu_items ul.dropdown-menu [data-toggle=dropdown]').on('click', function(event) { 
+$('.ttr_vmenu_items ul.dropdown-menu [data-toggle=dropdown]').on('click', function(event) {
 var window_width =  Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
 if(window_width < 1025){
 event.preventDefault();
@@ -126,7 +126,7 @@ event.stopPropagation();
 $(this).parent().siblings().removeClass('open');
 $(this).parent().toggleClass(function() {
 if ($(this).is(".open") ) {
-window.location.href = $(this).children("[data-toggle=dropdown]").attr('href'); 
+window.location.href = $(this).children("[data-toggle=dropdown]").attr('href');
 return "";
 } else {
 return "open";
@@ -180,7 +180,7 @@ TemplateToaster.com
 <a href="#" class="back-to-top"><img alt="Back to Top" src="images/gototop0.png"/></a>
 </div>
 <div id="ttr_page" class="container">
-<nav id="ttr_menu" class="navbar-default navbar">
+<nav id="ttr_menu" class="navbar-default navbar navbar-fixed-top">
    <div id="ttr_menu_inner_in">
 <div class="menuforeground">
 </div>
